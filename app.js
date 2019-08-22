@@ -2,7 +2,7 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-// random comment
+
 // app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -37,6 +37,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
+      displayPerson(person);
     // TODO: get person's info
     break;
     case "family":
@@ -61,12 +62,14 @@ function searchByName(people){
 
   let foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
+      console.log(person.firstName + person.lastName);
       return true;
     }
     else{
       return false;
     }
-  })
+  });
+  foundPerson = foundPerson[0];
   // TODO: find the person using the name they entered
   return foundPerson;
 }
@@ -83,15 +86,31 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  
+  
+  /////// calculate AGE
+  personInfo += "Age:" + person.dob + "\n";
+
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Eye color: " + person.eyeColor + "\n";
+
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
 
+function calculateAge(dob){
+  
+}
+
 // function that prompts and validates user input
 function promptFor(question, valid){
+  let response; 
   do{
-    let response = prompt(question).trim();
-  } while(!response || !valid(response));
+    response = prompt(question).trim();
+  } 
+  while(!response || !valid(response));
   return response;
 }
 
