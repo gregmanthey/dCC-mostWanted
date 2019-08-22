@@ -88,20 +88,22 @@ function displayPerson(person){
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
-  
-  
-  /////// calculate AGE
-  personInfo += "Age:" + person.dob + "\n";
-
+  personInfo += "Age:" + calculateAge(person.dob) + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   personInfo += "Eye color: " + person.eyeColor + "\n";
-
-  // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
 
 function calculateAge(dob){
-  
+  let today = new Date();
+  today = [today.getMonth() + 1, today.getDate(), today.getFullYear()];
+  let dobArray = dob.split("/");
+  let age = today[2] - dobArray[2];
+  if (today[0] < dobArray[0] || 
+    (today[0] == dobArray[0] && today[1] < dobArray[1])) {
+    age -= 1;
+  }
+  return age;
 }
 
 // function that prompts and validates user input
