@@ -76,14 +76,41 @@ function searchByName(people){
 }
 
 function searchByTraits(people){
-  
-  searchByGender(people);
-  searchByDob(people);
-  searchByHeight(people);
-  searchByWeight(people);
-  searchByEyeColor(people);
-  searchByOccupation(people);
-
+  let query = promptFor("Do you want to search by 'gender', 'birthday', 'height', 'weight', 'eye color', or 'occupation'? Type the option you want or 'restart' or 'quit'.", chars);
+  let possibleSuspects;
+  switch(query) {
+    case "gender":
+      possibleSuspects = searchByGender(people);
+      break;
+    case "birthday":
+      possibleSuspects = searchByDob(people);
+      break;
+    case "height":
+      possibleSuspects = searchByHeight(people);
+      break;
+    case "weight":
+      possibleSuspects = searchByWeight(people);
+      break;
+    case "eye color":
+      possibleSuspects = searchByEyeColor(people);
+      break;
+    case "occupation":
+      possibleSuspects = searchByOccupation(people);
+      break;
+    case "restart":
+      app(people);
+      break;
+    case "quit":
+      return;
+      break;
+    default:
+      alert("Please enter a valid input, n00b.")
+      searchByTraits(people);
+      break;
+  }
+  console.log("Possible suspects below:");
+  console.log(possibleSuspects);
+  return possibleSuspects;
 }
 
 function searchByGender(people){
@@ -116,7 +143,7 @@ function searchByHeight(people){
   let height = promptFor("What is the person's height?", chars);
 
   let peopleWithHeight = people.filter(function (person){
-    if(person.height === height){
+    if(person.height == height){
       return true;
     }
   });
@@ -129,7 +156,7 @@ function searchByWeight(people){
   let weight = promptFor("What is the person's weight?", chars);
 
   let peopleWithWeight = people.filter(function (person){
-    if(person.weight === weight){
+    if(person.weight == weight){
       return true;
     }
   });
