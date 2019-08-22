@@ -75,8 +75,92 @@ function searchByName(people){
   return foundPerson;
 }
 
-function searchByTraits(){
+function searchByTraits(people){
+  
+  searchByGender(people);
+  searchByDob(people);
+  searchByHeight(people);
+  searchByWeight(people);
+  searchByEyeColor(people);
+  searchByOccupation(people);
 
+}
+
+function searchByGender(people){
+  let gender = promptFor("What is the person's gender?", chars);
+
+  let peopleWithGender = people.filter(function (person){
+    if(person.gender === gender){
+      return true;
+    }
+  });
+
+  console.log(peopleWithGender);
+  return peopleWithGender;
+}
+
+function searchByDob(people){
+  let dob = promptFor("What is the person's date of birth?", chars);
+
+  let peopleWithDob = people.filter(function (person){
+    if(person.dob === dob){
+      return true;
+    }
+  });
+
+  console.log(peopleWithDob);
+  return peopleWithDob;
+}
+
+function searchByHeight(people){
+  let height = promptFor("What is the person's height?", chars);
+
+  let peopleWithHeight = people.filter(function (person){
+    if(person.height === height){
+      return true;
+    }
+  });
+
+  console.log(peopleWithHeight);
+  return peopleWithHeight;
+}
+
+function searchByWeight(people){
+  let weight = promptFor("What is the person's weight?", chars);
+
+  let peopleWithWeight = people.filter(function (person){
+    if(person.weight === weight){
+      return true;
+    }
+  });
+
+  console.log(peopleWithWeight);
+  return peopleWithWeight;
+}
+function searchByEyeColor(people){
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+
+  let peopleWithEyeColor = people.filter(function (person){
+    if(person.eyeColor === eyeColor){
+      return true;
+    }
+  });
+
+  console.log(peopleWithEyeColor);
+  return peopleWithEyeColor;
+}
+
+function searchByOccupation(people){
+  let occupation = promptFor("What is the person's occupation?", chars);
+
+  let peopleWithOccupation = people.filter(function (person){
+    if(person.occupation === occupation){
+      return true;
+    }
+  });
+
+  console.log(peopleWithOccupation);
+  return peopleWithOccupation;
 }
 
 // alerts a list of people
