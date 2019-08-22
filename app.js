@@ -2,7 +2,7 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-
+// random comment
 // app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
