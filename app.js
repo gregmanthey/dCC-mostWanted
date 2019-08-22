@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = searchByTraits(people);
+      searchResults = narrowSuspectsToOne(people);
       // TODO: search by traits
       break;
       default:
@@ -73,6 +73,14 @@ function searchByName(people){
   foundPerson = foundPerson[0];
   // TODO: find the person using the name they entered XXXX
   return foundPerson;
+}
+
+function narrowSuspectsToOne(people){
+  while(people.length > 1){
+    people = searchByTraits(people);
+  }
+  let person = people[0];
+  return person;
 }
 
 function searchByTraits(people){
