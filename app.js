@@ -39,12 +39,14 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
       displayPerson(person);
-    // TODO: get person's info
+    // TODO: get person's info XXXXXXXXX
     break;
     case "family":
+      displayFamily(person);
     // TODO: get person's family
     break;
     case "descendants":
+      displayDescendants(person);
     // TODO: get person's descendants
     break;
     case "restart":
@@ -107,9 +109,6 @@ function searchByTraits(people){
       break;
     case "restart":
       app(people);
-      break;
-    case "quit":
-      return;
       break;
     default:
       alert("Please enter a valid input, n00b.")
@@ -206,8 +205,8 @@ function displayPeople(people){
 }
 
 function displayPerson(person){
-  // print all of the information about a person: XXXXXX
-  // height, weight, age, name, occupation, eye color. XXXXXXX
+  // print all of the information about a person: XXXXXXXXXXXXXXXXXXX
+  // height, weight, age, name, occupation, eye color. XXXXXXXXXXXXXXX
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Height: " + person.height + "\n";
@@ -217,6 +216,23 @@ function displayPerson(person){
   personInfo += "Eye color: " + person.eyeColor + "\n";
   alert(personInfo);
 }
+
+function displayFamily(person){
+
+}
+
+function searchForDescendants(people, SSN, children = []){ // Recursion needed here
+    for(i = 0; i < people.length; i++){
+        if(people.parents.includes(SSN)){
+            children.push(people[i]);
+        }
+    }
+    for (let i = children.length - 1; i >= 0; i--){
+        searchForChildren(people,children[i].id,children);
+    }
+    return children;
+}
+
 
 function calculateAge(dob){
   let today = new Date();
