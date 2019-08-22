@@ -106,9 +106,8 @@ function calculateAge(dob){
 
 // function that prompts and validates user input
 function promptFor(question, valid){
-  let response; 
   do{
-    response = prompt(question).trim();
+    var response = prompt(question).trim();
   } 
   while(!response || !valid(response));
   return response;
