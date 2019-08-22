@@ -12,6 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
+      searchResults = searchByTraits(people);
       // TODO: search by traits
       break;
       default:
@@ -70,8 +71,12 @@ function searchByName(people){
     }
   });
   foundPerson = foundPerson[0];
-  // TODO: find the person using the name they entered
+  // TODO: find the person using the name they entered XXXX
   return foundPerson;
+}
+
+function searchByTraits(){
+
 }
 
 // alerts a list of people
@@ -82,8 +87,8 @@ function displayPeople(people){
 }
 
 function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
+  // print all of the information about a person: XXXXXX
+  // height, weight, age, name, occupation, eye color. XXXXXXX
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Height: " + person.height + "\n";
