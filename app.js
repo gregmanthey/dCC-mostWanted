@@ -46,7 +46,8 @@ function mainMenu(person, people){
     // TODO: get person's family
     break;
     case "descendants":
-      displayDescendants(person);
+      let descendants = searchForDescendants(people, person.id);  
+      displayDescendants(descendants);
     // TODO: get person's descendants
     break;
     case "restart":
@@ -222,15 +223,21 @@ function displayFamily(person){
 }
 
 function searchForDescendants(people, SSN, children = []){ // Recursion needed here
-    for(i = 0; i < people.length; i++){
-        if(people.parents.includes(SSN)){
-            children.push(people[i]);
+    for(let i = 0; i < people.length; i++){
+        if(people[i].parents.includes(SSN)){
+          children.push(people[i]);
+          searchForDescendants(people, people[i].id, children);
         }
     }
-    for (let i = children.length - 1; i >= 0; i--){
-        searchForChildren(people,children[i].id,children);
-    }
     return children;
+}
+
+function displayDescendants(descendants){
+  let listOfDescendants = "Their descendants are: \n";
+  for(let i = 0; i < descendants.length; i++){
+    listOfDescendants += descendants[i].firstName + " " + descendants[i].lastName + "\n";
+  }
+  alert(listOfDescendants);
 }
 
 
