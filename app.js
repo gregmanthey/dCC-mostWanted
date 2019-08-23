@@ -34,7 +34,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
   while(true) {
-    let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars);
+    let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", charsLetters);
     switch(displayOption){
       case "info":
         displayPerson(person);
@@ -60,8 +60,8 @@ function mainMenu(person, people){
 }
 
 function searchByName(people){
-  let firstName = promptFor("What is the person's first name?", chars);
-  let lastName = promptFor("What is the person's last name?", chars);
+  let firstName = promptFor("What is the person's first name?", charsLetters);
+  let lastName = promptFor("What is the person's last name?", charsLetters);
 
   let foundPerson = people.filter(function(person){
     if(person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()){
@@ -86,7 +86,7 @@ function narrowSuspectsToOne(people){
 }
 
 function searchByTraits(people){
-  let query = promptFor("Do you want to search by 'gender', 'birthday', 'height', 'weight', 'eye color', or 'occupation'? Type the option you want or 'restart' or 'quit'.", chars);
+  let query = promptFor("Do you want to search by 'gender', 'birthday', 'height', 'weight', 'eye color', or 'occupation'? Type the option you want or 'restart' or 'quit'.", charsLetters);
   let possibleSuspects;
   switch(query) {
     case "gender":
@@ -123,7 +123,7 @@ function searchByTraits(people){
 }
 
 function searchByGender(people){
-  let gender = promptFor("What is the person's gender?", chars);
+  let gender = promptFor("What is the person's gender?", charsLetters);
 
   let peopleWithGender = people.filter(function (person){
     if(person.gender.toLowerCase() === gender.toLowerCase()){
@@ -136,7 +136,7 @@ function searchByGender(people){
 }
 
 function searchByDob(people){
-  let dob = promptFor("What is the person's date of birth?", chars);
+  let dob = promptFor("What is the person's date of birth?", charsNumbers);
 
   let peopleWithDob = people.filter(function (person){
     if(person.dob === dob){
@@ -149,7 +149,7 @@ function searchByDob(people){
 }
 
 function searchByHeight(people){
-  let height = promptFor("What is the person's height?", chars);
+  let height = promptFor("What is the person's height?", charsNumbers);
 
   let peopleWithHeight = people.filter(function (person){
     if(person.height == height){
@@ -162,7 +162,7 @@ function searchByHeight(people){
 }
 
 function searchByWeight(people){
-  let weight = promptFor("What is the person's weight?", chars);
+  let weight = promptFor("What is the person's weight?", charsNumbers);
 
   let peopleWithWeight = people.filter(function (person){
     if(person.weight == weight){
@@ -174,7 +174,7 @@ function searchByWeight(people){
   return peopleWithWeight;
 }
 function searchByEyeColor(people){
-  let eyeColor = promptFor("What is the person's eye color?", chars);
+  let eyeColor = promptFor("What is the person's eye color?", charsLetters);
 
   let peopleWithEyeColor = people.filter(function (person){
     if(person.eyeColor.toLowerCase() === eyeColor.toLowerCase()){
@@ -187,7 +187,7 @@ function searchByEyeColor(people){
 }
 
 function searchByOccupation(people){
-  let occupation = promptFor("What is the person's occupation?", chars);
+  let occupation = promptFor("What is the person's occupation?", charsLetters);
 
   let peopleWithOccupation = people.filter(function (person){
     if(person.occupation.toLowerCase() === occupation.toLowerCase()){
@@ -294,11 +294,28 @@ function yesNo(input){
 }
 
 // helper function to pass in as default promptFor validation
-function chars(input){
+function charsLetters(input){
     // remove leading zeros
     // accept x/x/xxxx or x-x-xxxx
     // make only acceptable symbols / or - 
     // ensure SOMETHING is input or throw an error "input value"
-
+    let validLetters = /[^a-zA-Z]/;
+  if(!validLetters.test(input) || input === "eye color"){
     return true; //default validation only
+  }
+  else{
+    alert("Please enter valid characters.\nAccepted characters:\nletters");
+    return false;
+  }
+}
+
+function charsNumbers(input){
+  let validNumbers = /[^-/0-9]/;
+  if(!validNumbers.test(input)){
+    return true; //default validation only
+  }
+  else{
+    alert("Please enter valid characters.\nAccepted characters:\nnumbers, / and - (for dates)");
+    return false;
+  }
 }
