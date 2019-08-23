@@ -34,7 +34,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
   while(true) {
-    let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+    let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars);
     switch(displayOption){
       case "info":
         displayPerson(person);
@@ -45,8 +45,7 @@ function mainMenu(person, people){
       // TODO: get person's family XXXXXXXX
       break;
       case "descendants":
-        let descendants = searchForDescendants(people, person.id);  
-        displayDescendants(descendants);
+        displayDescendants(searchForDescendants(people, person.id));
       // TODO: get person's descendants XXXXXXXXXXX
       break;
       case "restart":
@@ -65,7 +64,7 @@ function searchByName(people){
   let lastName = promptFor("What is the person's last name?", chars);
 
   let foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
+    if(person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()){
       console.log(person.firstName + person.lastName);
       return true;
     }
@@ -127,7 +126,7 @@ function searchByGender(people){
   let gender = promptFor("What is the person's gender?", chars);
 
   let peopleWithGender = people.filter(function (person){
-    if(person.gender === gender){
+    if(person.gender.toLowerCase() === gender.toLowerCase()){
       return true;
     }
   });
@@ -178,7 +177,7 @@ function searchByEyeColor(people){
   let eyeColor = promptFor("What is the person's eye color?", chars);
 
   let peopleWithEyeColor = people.filter(function (person){
-    if(person.eyeColor === eyeColor){
+    if(person.eyeColor.toLowerCase() === eyeColor.toLowerCase()){
       return true;
     }
   });
@@ -191,7 +190,7 @@ function searchByOccupation(people){
   let occupation = promptFor("What is the person's occupation?", chars);
 
   let peopleWithOccupation = people.filter(function (person){
-    if(person.occupation === occupation){
+    if(person.occupation.toLowerCase() === occupation.toLowerCase()){
       return true;
     }
   });
@@ -283,7 +282,7 @@ function calculateAge(dob){
 // function that prompts and validates user input
 function promptFor(question, valid){
   do{
-    var response = prompt(question).trim();
+    var response = prompt(question).trim().toLowerCase();
   } 
   while(!response || !valid(response));
   return response;
@@ -296,5 +295,10 @@ function yesNo(input){
 
 // helper function to pass in as default promptFor validation
 function chars(input){
-  return true; // default validation only
+    // remove leading zeros
+    // accept x/x/xxxx or x-x-xxxx
+    // make only acceptable symbols / or - 
+    // ensure SOMETHING is input or throw an error "input value"
+
+    return true; //default validation only
 }
