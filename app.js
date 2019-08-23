@@ -25,24 +25,29 @@ function mainMenu(person, people){
   }
 
   while(true) {
-    let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", charsLetters);
+    let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their Info (i), Family (f), or Descendants (d)? Type the option you want or Restart (r) or Quit (q)", charsLetters);
     switch(displayOption){
       case "info":
+      case "i":
         displayPerson(person);
-      break;
+       break;
       case "family":
+      case "f":
         displayFamily(people, person);
-      break;
+        break;
       case "descendants":
+      case "d":
         displayDescendants(searchForDescendants(people, person.id));
-      break;
+       break;
       case "restart":
-      app(people);
-      break;
+      case "r":
+       app(people);
+       break;
       case "quit":
-      return;
+      case "q":
+       return;
       default:
-      return mainMenu(person, people);
+        return mainMenu(person, people);
     }
   }
 }
@@ -76,7 +81,7 @@ function searchByName(people){
 }
 
 function searchByTraits(people){
-  let query = promptFor("Do you want to search by Gender (g), Date of Birth (d), Height (h), Weight, Eye Color (e), or Occupation (o)? Type the option you want or Restart (r).", charsLetters);
+  let query = promptFor("Do you want to search by Gender (g), Date of Birth (d), Height (h), Weight (w), Eye Color (e), or Occupation (o)? Type the option you want or Restart (r).", charsLetters);
   let possibleSuspects;
   switch(query) {
     case "gender":
@@ -243,12 +248,26 @@ function displayPerson(person){
 function displayFamily(people, person) {
   let suspectSpouse = searchSpouse(people, person);
   let suspectChildren = searchChildren(people, person);
-  
-  alert(person.firstName + " has " + suspectChildren.length + " children:");
-  displayPeople(suspectChildren);
-  
-  alert(person.firstName + " has " + suspectSpouse.length + " current spouse\(s\):");
-  displayPeople(suspectSpouse);
+  let alertList = "Immediate family members of " + person.firstName + " " + person.lastName + ":\n\n";
+  if(suspectSpouse.length > 0 && suspectChildren.length > 0){
+    alertList += "Spouse:\n" + suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n\n";
+    alertList += "Children:\n";
+    for(let i = 0; i < suspectChildren.length; i++){
+      alertList += suspectChildren[i].firstName + " " + suspectChildren[i].lastName + "\n";
+    }
+    alert(alertList);
+  }
+  else if(suspectChildren.length > 0){
+    alertList = "Children:\n";
+    for(let i = 0; i < suspectChildren.length; i++){
+      alertList += suspectChildren[i].firstName + " " + suspectChildren[i].lastName + "\n";
+    }
+    alert(alertList);
+  }
+  else if(suspectSpouse.length > 0){
+    alertList += "Spouse:\n" + suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n";
+    alert(alertList);
+  }
 }
 
 function displayDescendants(descendants){
@@ -315,14 +334,12 @@ function charsNumbers(input){
 }
 
 function removeLeadingZeros(input){
-  if(input[0] == 0){
-    input = input.split("").splice(1).join("");
-    return input;
-    // let afterSlash = input.split("").indexOf("/");
-    // console.log(afterSlash);
-    // console.log(input);
-    // input = input.indexOf(afterSlash+1);
-    // console.log(input);
-    // return input;
+  let leadingZeroes = /^0+/;
+  let subsequentleadingZeros = /[-/.]0+|[-.]/g;
+  if(leadingZeroes.test(input) || subsequentleadingZeros.test(input)){
+    input = input.replace(leadingZeroes, "");
+    input = input.replace(subsequentleadingZeros, "/");
   }
+
+  return input;
 }
