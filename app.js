@@ -33,30 +33,30 @@ function mainMenu(person, people){
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
-
-  switch(displayOption){
-    case "info":
-      displayPerson(person);
-    // TODO: get person's info XXXXXXXXX
-    break;
-    case "family":
-      displayFamily(person);
-    // TODO: get person's family
-    break;
-    case "descendants":
-      let descendants = searchForDescendants(people, person.id);  
-      displayDescendants(descendants);
-    // TODO: get person's descendants
-    break;
-    case "restart":
-    app(people); // restart
-    break;
-    case "quit":
-    return; // stop execution
-    default:
-    return mainMenu(person, people); // ask again
+  while(true) {
+    let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+    switch(displayOption){
+      case "info":
+        displayPerson(person);
+      // TODO: get person's info XXXXXXXXX
+      break;
+      case "family":
+        displayFamily(people, person);
+      // TODO: get person's family XXXXXXXX
+      break;
+      case "descendants":
+        let descendants = searchForDescendants(people, person.id);  
+        displayDescendants(descendants);
+      // TODO: get person's descendants XXXXXXXXXXX
+      break;
+      case "restart":
+      app(people); // restart
+      break;
+      case "quit":
+      return; // stop execution
+      default:
+      return mainMenu(person, people); // ask again
+    }
   }
 }
 
@@ -220,18 +220,43 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-function displayFamily(person){
+function displayFamily(people, person) {
+  let suspectSpouse = searchSpouse(people, person);
+  let suspectChildren = searchChildren(people, person);
+  alert(person.firstName + " has " + suspectChildren.length + " children:");
+  displayPeople(suspectChildren);
+  alert(person.firstName + " has " + suspectSpouse.length + " current spouse\(s\):");
+  displayPeople(suspectSpouse);
+}
 
+function searchSpouse(people, person){
+  let spouse = [];
+  for(let i = 0; i < people.length; i++){
+    if(people[i].currentSpouse == person.id){
+      spouse.push(people[i]);
+    }
+  }
+  return spouse;
+}
+
+function searchChildren(people, person){
+  let children = [];
+  for(let i = 0; i < people.length; i++){
+    if(people[i].parents.includes(person.id)){
+        children.push(people[i]);
+    }
+  }
+  return children;
 }
 
 function searchForDescendants(people, SSN, children = []){ // Recursion needed here
-    for(let i = 0; i < people.length; i++){
-        if(people[i].parents.includes(SSN)){
-          children.push(people[i]);
-          searchForDescendants(people, people[i].id, children);
-        }
+  for(let i = 0; i < people.length; i++){
+    if(people[i].parents.includes(SSN)){
+      children.push(people[i]);
+      searchForDescendants(people, people[i].id, children);
     }
-    return children;
+  }
+  return children;
 }
 
 function displayDescendants(descendants){
