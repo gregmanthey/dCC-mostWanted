@@ -116,8 +116,10 @@ function searchByTraits(people){
       searchByTraits(people);
       break;
   }
-  console.log("Possible suspects below:");
-  console.log(possibleSuspects);
+  if(possibleSuspects.length > 1){
+    alert(possibleSuspects.length + " possible suspects remain:");
+    displayPeople(possibleSuspects);
+  }
   return possibleSuspects;
 }
 
