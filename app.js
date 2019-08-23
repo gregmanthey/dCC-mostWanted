@@ -86,32 +86,39 @@ function narrowSuspectsToOne(people){
 }
 
 function searchByTraits(people){
-  let query = promptFor("Do you want to search by 'gender', 'birthday', 'height', 'weight', 'eye color', or 'occupation'? Type the option you want or 'restart' or 'quit'.", charsLetters);
+  let query = promptFor("Do you want to search by Gender (g), Date of Birth (d), Height (h), Weight, Eye Color (e), or Occupation (o)? Type the option you want or Restart (r).", charsLetters);
   let possibleSuspects;
   switch(query) {
     case "gender":
+    case "g":
       possibleSuspects = searchByGender(people);
       break;
-    case "birthday":
+    case "date of birth":
+    case "d":
       possibleSuspects = searchByDob(people);
       break;
     case "height":
+    case "h":
       possibleSuspects = searchByHeight(people);
       break;
     case "weight":
+    case "w":
       possibleSuspects = searchByWeight(people);
       break;
     case "eye color":
+    case "e":
       possibleSuspects = searchByEyeColor(people);
       break;
     case "occupation":
+    case "o":
       possibleSuspects = searchByOccupation(people);
       break;
     case "restart":
+    case "r":
       app(people);
       break;
     default:
-      alert("Please enter a valid input, n00b.")
+      alert("Please enter a valid input, lest you be sent to the Perseus Veil.");
       searchByTraits(people);
       break;
   }
@@ -299,23 +306,23 @@ function charsLetters(input){
     // accept x/x/xxxx or x-x-xxxx
     // make only acceptable symbols / or - 
     // ensure SOMETHING is input or throw an error "input value"
-    let validLetters = /[^a-zA-Z]/;
+    let validLetters = /[^a-zA-Z]{1,}/g;
   if(!validLetters.test(input) || input === "eye color"){
     return true; //default validation only
   }
   else{
-    alert("Please enter valid characters.\nAccepted characters:\nletters");
+    alert("Please enter only valid characters.\nAccepted characters:\nletters");
     return false;
   }
 }
 
 function charsNumbers(input){
-  let validNumbers = /[^-/0-9]/;
+  let validNumbers = /[^-/.0-9]{1,}/g;
   if(!validNumbers.test(input)){
     return true; //default validation only
   }
   else{
-    alert("Please enter valid characters.\nAccepted characters:\nnumbers, / and - (for dates)");
+    alert("Please enter only valid characters.\nAccepted characters:\nnumbers, / or . or - (for dates)");
     return false;
   }
 }
