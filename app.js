@@ -257,7 +257,7 @@ function displayFamily(people, person) {
   let alertList = "Immediate family members of " + person.firstName + " " + person.lastName + ":\n\n";
   alertList += "Parents:\n";
   if(suspectParents.length === 0){
-    alertList += "No known parents\n"
+    alertList += "No known parents\n";
   }
   else{
     for(let i = 0; i < suspectParents.length; i++){
@@ -266,14 +266,14 @@ function displayFamily(people, person) {
   }
   alertList += "\nSpouse:\n";
   if(suspectSpouse.length === 0){
-    alertList += "No known spouses\n"
+    alertList += "No known spouses\n";
   }
   else{
     alertList += suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n";
   }
   alertList += "\nChildren:\n";
   if(suspectChildren.length === 0){
-    alertList += "No known children\n"
+    alertList += "No known children\n";
   }
   else{
     for(let i = 0; i < suspectChildren.length; i++){
