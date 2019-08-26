@@ -292,7 +292,7 @@ function displayFamily(people, person) {
   }
 
   alertList += "\n\nSiblings:\n";
-  if(suspectSiblings === undefined){
+  if(suspectSiblings === undefined || suspectSiblings.length === 0){
     alertList += "No known siblings";
   }
   else {
