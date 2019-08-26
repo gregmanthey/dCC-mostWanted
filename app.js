@@ -202,6 +202,16 @@ function searchSpouse(people, person){
   return spouse;
 }
 
+function searchParents(people, person){
+  let parent = [];
+  for(let i = 0; i < people.length; i++){
+    if(person.parents.includes(people[i].id)){
+      parent.push(people[i]);
+    }
+  }
+  return parent;
+}
+
 function searchChildren(people, person){
   let children = [];
   for(let i = 0; i < people.length; i++){
@@ -243,7 +253,9 @@ function displayPerson(person){
 function displayFamily(people, person) {
   let suspectSpouse = searchSpouse(people, person);
   let suspectChildren = searchChildren(people, person);
+  let suspectParents = searchParents(people, person);
   let alertList = "Immediate family members of " + person.firstName + " " + person.lastName + ":\n\n";
+  
   if(suspectSpouse.length > 0 && suspectChildren.length > 0){
     alertList += "Spouse:\n" + suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n\n";
     alertList += "Children:\n";
@@ -261,6 +273,14 @@ function displayFamily(people, person) {
   }
   else if(suspectSpouse.length > 0){
     alertList += "Spouse:\n" + suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n";
+    alert(alertList);
+  }
+
+  if(suspectParents.length > 0){
+    alertList += "Parents:\n";
+    for(let i = 0; i < suspectParents.length; i++){
+      alertList += suspectParents[i].firstName + " " + suspectParents[i].lastName + "\n";
+    }
     alert(alertList);
   }
 }
