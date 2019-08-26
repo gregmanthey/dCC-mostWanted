@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -109,12 +109,11 @@ function searchByTraits(people){
       possibleSuspects = searchByOccupation(people);
       break;
     default:
-      alert("Please enter a valid input, lest you be sent to the Perseus Veil.");
+      alert("Please enter a valid input.\n\nYou can type the full term or ");
       return searchByTraits(people);
   }
   if(possibleSuspects.length > 1){
-    alert(possibleSuspects.length + " possible suspects remain:");
-    displayPeople(possibleSuspects);
+    alert(possibleSuspects.length + " possible suspects remain:\n" + displayPeople(possibleSuspects));
   }
   return possibleSuspects;
 }
@@ -234,9 +233,9 @@ function searchForDescendants(people, SSN, children = []){
 
 // Display Functions
 function displayPeople(people){
-  alert(people.map(function(person){
+  return people.map(function(person){
     return person.firstName + " " + person.lastName;
-  }).join("\n"));
+  }).join("\n");
 }
 
 function displayPerson(person){
@@ -254,31 +253,27 @@ function displayFamily(people, person) {
   let suspectSpouse = searchSpouse(people, person);
   let suspectChildren = searchChildren(people, person);
   let suspectParents = searchParents(people, person);
-  let alertList = "Immediate family members of " + person.firstName + " " + person.lastName + ":\n\n";
-  alertList += "Parents:\n";
+  let alertList = "Immediate family members of " + person.firstName + " " + person.lastName + ":";
+  alertList += "\n\nParents:\n";
   if(suspectParents.length === 0){
-    alertList += "No known parents\n";
+    alertList += "No known parents";
   }
   else{
-    for(let i = 0; i < suspectParents.length; i++){
-      alertList += suspectParents[i].firstName + " " + suspectParents[i].lastName + "\n";
-    }
+      alertList += displayPeople(suspectParents);
   }
-  alertList += "\nSpouse:\n";
+  alertList += "\n\nSpouse:\n";
   if(suspectSpouse.length === 0){
-    alertList += "No known spouses\n";
+    alertList += "No known spouses";
   }
   else{
-    alertList += suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n";
+    alertList += displayPeople(suspectSpouse);
   }
-  alertList += "\nChildren:\n";
+  alertList += "\n\nChildren:\n";
   if(suspectChildren.length === 0){
-    alertList += "No known children\n";
+    alertList += "No known children";
   }
   else{
-    for(let i = 0; i < suspectChildren.length; i++){
-      alertList += suspectChildren[i].firstName + " " + suspectChildren[i].lastName + "\n";
-    }
+    alertList += displayPeople(suspectChildren);
   }
   alert(alertList);
 }
@@ -287,9 +282,7 @@ function displayDescendants(descendants){
   
   if(descendants.length > 0){
     let listOfDescendants = "Their descendants are: \n";
-    for(let i = 0; i < descendants.length; i++){
-      listOfDescendants += descendants[i].firstName + " " + descendants[i].lastName + "\n";
-    }
+    listOfDescendants += displayPeople(descendants);
     alert(listOfDescendants);
   }
   else {
@@ -326,8 +319,8 @@ function yesNo(input){
 
 function charsLetters(input){
     let validLetters = /[^a-zA-Z]{1,}/g;
-  if(!validLetters.test(input) || input === "eye color"){
-    return true; //default validation only
+  if(!validLetters.test(input) || input === "eye color" || input === "date of birth"){
+    return true;
   }
   else{
     alert("Please enter only valid characters.\nAccepted characters:\nletters");
@@ -338,7 +331,7 @@ function charsLetters(input){
 function charsNumbers(input){
   let validNumbers = /[^-/.0-9]{1,}/g;
   if(!validNumbers.test(input)){
-    return true; //default validation only
+    return true;
   }
   else{
     alert("Please enter only valid characters.\nAccepted characters:\nnumbers, / or . or - (for dates)");
