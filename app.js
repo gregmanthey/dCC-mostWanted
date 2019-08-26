@@ -42,7 +42,7 @@ function mainMenu(person, people){
       case "restart":
       case "r":
        app(people);
-       break;
+       return;
       case "quit":
       case "q":
        return;
@@ -343,3 +343,4 @@ function removeLeadingZeros(input){
 
   return input;
 }
+
