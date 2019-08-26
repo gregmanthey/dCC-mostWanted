@@ -68,7 +68,6 @@ function searchByName(people){
 
   let foundPerson = people.filter(function(person){
     if(person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()){
-      console.log(person.firstName + person.lastName);
       return true;
     }
     else{
@@ -109,7 +108,7 @@ function searchByTraits(people){
       possibleSuspects = searchByOccupation(people);
       break;
     default:
-      alert("Please enter a valid input.\n\nYou can type the full term or ");
+      alert("Please enter a valid input.\n\nYou can type the full descriptor or initial.\n\nExample:\n\"date of birth\" or \"d\" (without quotes)");
       return searchByTraits(people);
   }
   if(possibleSuspects.length > 1){
@@ -212,7 +211,7 @@ function searchParents(people, person){
 }
 
 function searchSiblings(people, person){
-  let siblings;
+  let siblings = [];
   let parent;
   for(let i = 0; i < person.parents.length; i++){
     parent = people.filter(function(potentialParent){
@@ -292,7 +291,7 @@ function displayFamily(people, person) {
   }
 
   alertList += "\n\nSiblings:\n";
-  if(suspectSiblings === undefined || suspectSiblings.length === 0){
+  if(suspectSiblings.length === 0){
     alertList += "No known siblings";
   }
   else {
