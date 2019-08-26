@@ -211,6 +211,25 @@ function searchParents(people, person){
   return parent;
 }
 
+function searchSiblings(people, person){
+  let siblings;
+  let parent;
+  for(let i = 0; i < person.parents.length; i++){
+    parent = people.filter(function(potentialParent){
+      if(potentialParent.id === person.parents[i]){
+        return true;
+      }
+    });
+    
+    siblings = people.filter(function(potentialChildren){
+      if(potentialChildren.parents.includes(parent[0].id) && potentialChildren !== person){
+        return true;
+      }
+    });
+  }
+  return siblings;
+}
+
 function searchChildren(people, person){
   let children = [];
   for(let i = 0; i < people.length; i++){
@@ -253,14 +272,17 @@ function displayFamily(people, person) {
   let suspectSpouse = searchSpouse(people, person);
   let suspectChildren = searchChildren(people, person);
   let suspectParents = searchParents(people, person);
+  let suspectSiblings = searchSiblings(people, person);
   let alertList = "Immediate family members of " + person.firstName + " " + person.lastName + ":";
   alertList += "\n\nParents:\n";
+
   if(suspectParents.length === 0){
     alertList += "No known parents";
   }
   else{
       alertList += displayPeople(suspectParents);
   }
+
   alertList += "\n\nSpouse:\n";
   if(suspectSpouse.length === 0){
     alertList += "No known spouses";
@@ -268,6 +290,15 @@ function displayFamily(people, person) {
   else{
     alertList += displayPeople(suspectSpouse);
   }
+
+  alertList += "\n\nSiblings:\n"
+  if(suspectSiblings.length === 0){
+    alertList += "No known siblings";
+  }
+  else {
+    alertList += displayPeople(suspectSiblings);
+  }
+
   alertList += "\n\nChildren:\n";
   if(suspectChildren.length === 0){
     alertList += "No known children";
