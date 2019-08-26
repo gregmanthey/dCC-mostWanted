@@ -255,34 +255,32 @@ function displayFamily(people, person) {
   let suspectChildren = searchChildren(people, person);
   let suspectParents = searchParents(people, person);
   let alertList = "Immediate family members of " + person.firstName + " " + person.lastName + ":\n\n";
-  
-  if(suspectSpouse.length > 0 && suspectChildren.length > 0){
-    alertList += "Spouse:\n" + suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n\n";
-    alertList += "Children:\n";
-    for(let i = 0; i < suspectChildren.length; i++){
-      alertList += suspectChildren[i].firstName + " " + suspectChildren[i].lastName + "\n";
-    }
-    alert(alertList);
+  alertList += "Parents:\n";
+  if(suspectParents.length === 0){
+    alertList += "No known parents\n"
   }
-  else if(suspectChildren.length > 0){
-    alertList = "Children:\n";
-    for(let i = 0; i < suspectChildren.length; i++){
-      alertList += suspectChildren[i].firstName + " " + suspectChildren[i].lastName + "\n";
-    }
-    alert(alertList);
-  }
-  else if(suspectSpouse.length > 0){
-    alertList += "Spouse:\n" + suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n";
-    alert(alertList);
-  }
-
-  if(suspectParents.length > 0){
-    alertList += "Parents:\n";
+  else{
     for(let i = 0; i < suspectParents.length; i++){
       alertList += suspectParents[i].firstName + " " + suspectParents[i].lastName + "\n";
     }
-    alert(alertList);
   }
+  alertList += "\nSpouse:\n";
+  if(suspectSpouse.length === 0){
+    alertList += "No known spouses\n"
+  }
+  else{
+    alertList += suspectSpouse[0].firstName + " " + suspectSpouse[0].lastName + "\n";
+  }
+  alertList += "\nChildren:\n";
+  if(suspectChildren.length === 0){
+    alertList += "No known children\n"
+  }
+  else{
+    for(let i = 0; i < suspectChildren.length; i++){
+      alertList += suspectChildren[i].firstName + " " + suspectChildren[i].lastName + "\n";
+    }
+  }
+  alert(alertList);
 }
 
 function displayDescendants(descendants){
