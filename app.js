@@ -220,7 +220,7 @@ function searchSiblings(people, person){
         return true;
       }
     });
-    
+
     siblings = people.filter(function(potentialChildren){
       if(potentialChildren.parents.includes(parent[0].id) && potentialChildren !== person){
         return true;
@@ -291,8 +291,8 @@ function displayFamily(people, person) {
     alertList += displayPeople(suspectSpouse);
   }
 
-  alertList += "\n\nSiblings:\n"
-  if(suspectSiblings.length === 0){
+  alertList += "\n\nSiblings:\n";
+  if(suspectSiblings === undefined){
     alertList += "No known siblings";
   }
   else {
