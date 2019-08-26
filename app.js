@@ -10,8 +10,8 @@ function app(people){
     case 'no':
       searchResults = narrowSuspectsToOne(people);
       break;
-      default:
-    app(people);
+    default:
+      app(people);
       break;
   }
   
@@ -30,7 +30,7 @@ function mainMenu(person, people){
       case "info":
       case "i":
         displayPerson(person);
-       break;
+        break;
       case "family":
       case "f":
         displayFamily(people, person);
@@ -38,14 +38,14 @@ function mainMenu(person, people){
       case "descendants":
       case "d":
         displayDescendants(searchForDescendants(people, person.id));
-       break;
+        break;
       case "restart":
       case "r":
-       app(people);
-       return;
+        app(people);
+        return;
       case "quit":
       case "q":
-       return;
+        return;
       default:
         return mainMenu(person, people);
     }
@@ -81,7 +81,7 @@ function searchByName(people){
 }
 
 function searchByTraits(people){
-  let query = promptFor("Do you want to search by Gender (g), Date of Birth (d), Height (h), Weight (w), Eye Color (e), or Occupation (o)? Type the option you want or Restart (r).", charsLetters);
+  let query = promptFor("Do you want to search by Gender (g), Date of Birth (d), Height (h), Weight (w), Eye Color (e), or Occupation (o)? Type the option you want.", charsLetters);
   let possibleSuspects;
   switch(query) {
     case "gender":
@@ -108,14 +108,9 @@ function searchByTraits(people){
     case "o":
       possibleSuspects = searchByOccupation(people);
       break;
-    case "restart":
-    case "r":
-      app(people);
-      break;
     default:
       alert("Please enter a valid input, lest you be sent to the Perseus Veil.");
-      searchByTraits(people);
-      break;
+      return searchByTraits(people);
   }
   if(possibleSuspects.length > 1){
     alert(possibleSuspects.length + " possible suspects remain:");
@@ -211,7 +206,7 @@ function searchChildren(people, person){
   let children = [];
   for(let i = 0; i < people.length; i++){
     if(people[i].parents.includes(person.id)){
-        children.push(people[i]);
+      children.push(people[i]);
     }
   }
   return children;
